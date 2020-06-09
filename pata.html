@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.2.0/howler.core.min.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="circle.css">
+    <title>Animo</title>
+    <script src="paper-full.js" type="text/javascript"></script>
+    <script type="text/paperscript" canvas="myCanvas">
+        var sound1 = new Howl({
+                src: ["sounds/clay.mp3"]
+                });
+        var sound2 = new Howl({
+                src: ["sounds/bubbles.mp3"]
+        })
+        
+        var circles=[];
+            
+        function onKeyDown(event) {
+        var maxPoint=new Point(view.size.width,view.size.height);
+        var randpoint=Point.random();
+        var point=maxPoint*randpoint;
+        var newCircle= new Path.Circle(point,500)
+        if(event.key === "a")
+        {
+            sound1.play()
+            newCircle.fillColor="blue"
+        }
+        else if(event.key === "b")
+        {
+            sound2.play()
+            newCircle.fillColor="red"
+        }
+        newCircle.fillColor="orange";
+        circles.push(newCircle);
+        }
+
+        function onFrame(event){
+            for(var i=0;i< circles.length;i++)
+            {
+                circles[i].fillColor.hue+=1;
+                circles[i].scale(.9);
+            }
+        }
+    
+    </script>
+</head>
+<body>
+    <canvas id="myCanvas" resize></canvas>
+
+</body>
+</html>
